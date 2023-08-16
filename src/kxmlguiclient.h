@@ -323,13 +323,16 @@ protected:
      *
      * The preferred way to call this method is with a simple filename for the @p file argument.
      *
-     * Since KF 5.1, the file will then be assumed to be installed in DATADIR/kxmlgui5/, under a directory
-     * named after the component name.
-     * You should use ${KDE_INSTALL_KXMLGUIDIR}/componentname in your CMakeLists.txt file, to install
-     * the .rc file(s).
+     * Since KF 6.0, the file will first be searched for in the subdir "<componentName>/kxmlgui6"
+     * of the locations for QStandardPaths::GenericConfigLocation. If no file was found there,
+     * it will be looked up in Qt resources in the path ":/<componentName>/kxmlgui6/".
      *
-     * Since KF 5.4, the file will then be assumed to be installed in a Qt resource in :/kxmlgui5/,
-     * under a directory named after the component name.
+     * So custom versions in the user configuration dir, as e.g. created when editing the toolbar,
+     * will be preferred, then any custom system default version, finally a built-in default.
+     *
+     * While using Qt resources to deploy the default version, in ":/<componentName>/kxmlgui6/",
+     * is recommended, the supported alternative is to install it (when using ECM's KDEInstallDirs)
+     * to "${KDE_INSTALL_CONFDIR}/<componentName>/kxmlgui6" in your CMakeLists.txt file.
      **/
     virtual void setXMLFile(const QString &file, bool merge = false, bool setXMLDoc = true);
 

@@ -189,7 +189,7 @@ void KXmlGui_UnitTest::testVersionHandlerNewVersionNothingKept()
 
     QMap<QString, int> fileToVersionMap; // makes QCOMPARE failures more readable than just temp filenames
 
-    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kxmlgui_unittest");
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1String("/kxmlgui_unittest");
     QDir().mkpath(dir);
     QFile fileV2(dir + QStringLiteral("/testui.rc"));
     QVERIFY2(fileV2.open(QIODevice::WriteOnly), qPrintable(fileV2.fileName()));
@@ -235,7 +235,7 @@ void KXmlGui_UnitTest::testVersionHandlerNewVersionUserChanges()
     QMap<QString, int> fileToVersionMap; // makes QCOMPARE failures more readable than just temp filenames
 
     // local file
-    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kxmlgui_unittest");
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1String("/kxmlgui_unittest");
     QFile fileV2(dir + QLatin1String("/testui.rc"));
     QVERIFY(fileV2.open(QIODevice::WriteOnly));
     createXmlFile(fileV2, 2, AddActionProperties | AddModifiedToolBars);
@@ -994,7 +994,7 @@ void KXmlGui_UnitTest::testXMLFileReplacement()
     fileReplace.close();
 
     // finally, our local xml file has <ActionProperties/>
-    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kxmlgui_unittest");
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1String("/kxmlgui_unittest");
     QFile fileLocal(dir + QLatin1String("/testui.rc"));
     QVERIFY2(fileLocal.open(QIODevice::WriteOnly), qPrintable(fileLocal.fileName()));
     createXmlFile(fileLocal, 1, AddActionProperties);

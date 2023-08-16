@@ -157,7 +157,8 @@ QString KXMLGUIClient::localXMLFile() const
         return QString();
     }
 
-    return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kxmlgui5/%1/%2").arg(componentName(), d->m_xmlFile);
+    return QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1Char('/') + componentName() + QLatin1String("/kxmlgui6/")
+        + d->m_xmlFile;
 }
 
 void KXMLGUIClient::reloadXML()
@@ -216,16 +217,25 @@ void KXMLGUIClient::setXMLFile(const QString &_file, bool merge, bool setXMLDoc)
     if (!QDir::isRelativePath(file)) {
         allFiles.append(file);
     } else {
-        const QString filter = componentName() + QLatin1Char('/') + _file;
+        const QString filter = componentName() + QLatin1String("/kxmlgui6/") + _file;
 
         // files on filesystem
-        allFiles << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("kxmlgui5/") + filter);
+        allFiles << QStandardPaths::locateAll(QStandardPaths::GenericConfigLocation, filter);
 
         // built-in resource file
-        const QString qrcFile(QLatin1String(":/kxmlgui5/") + filter);
+        const QString qrcFile(QLatin1String(":/") + filter);
         if (QFile::exists(qrcFile)) {
             allFiles << qrcFile;
         }
+#if KXMLGUI_VERSION <= QT_VERSION_CHECK(5, 240, 0)
+        // old built-in resource file
+        // support while making noise until 5.241 to allow non-breaking consumer port
+        const QString oldQrcFile = QLatin1String(":/kxmlgui5/") + componentName() + QLatin1Char('/') + _file;
+        if (QFile::exists(oldQrcFile)) {
+            qCCritical(DEBUG_KXMLGUI) << _file << "in outdated qrc location, change to" << qrcFile << "before KF 5.241";
+            allFiles << oldQrcFile;
+        }
+#endif
     }
     if (allFiles.isEmpty() && !_file.isEmpty()) {
         // if a non-empty file gets passed and we can't find it,

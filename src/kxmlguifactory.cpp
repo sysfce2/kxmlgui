@@ -102,11 +102,22 @@ QString KXMLGUIFactory::readConfigFile(const QString &filename, const QString &_
         xml_file = filename;
     } else {
         // first look for any custom user config, admin config or the default deployed as file
-        xml_file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("kxmlgui5/") + componentName + QLatin1Char('/') + filename);
+        const QString filter = componentName + QLatin1String("/kxmlgui6/") + filename;
+        xml_file = QStandardPaths::locate(QStandardPaths::GenericConfigLocation, filter);
         if (!QFile::exists(xml_file)) {
             // fall-back to any built-in resource file
-            xml_file = QLatin1String(":/kxmlgui5/") + componentName + QLatin1Char('/') + filename;
+            xml_file = QLatin1String(":/") + filter;
         }
+#if KXMLGUI_VERSION <= QT_VERSION_CHECK(5, 240, 0)
+        if (!QFile::exists(xml_file)) {
+            // fall-back to old built-in resource file name
+            // support while making noise until 5.241 to allow non-breaking consumer port
+            xml_file = QLatin1String(":/kxmlgui5/") + componentName + QLatin1Char('/') + filename;
+            if (QFile::exists(xml_file)) {
+                qCCritical(DEBUG_KXMLGUI) << filename << "in outdated qrc location, change to" << QLatin1String(":/") + filter << "before KF 5.241";
+            }
+        }
+#endif
     }
 
     QFile file(xml_file);
@@ -125,7 +136,8 @@ bool KXMLGUIFactory::saveConfigFile(const QDomDocument &doc, const QString &file
     QString xml_file(filename);
 
     if (QDir::isRelativePath(xml_file)) {
-        xml_file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/kxmlgui5/%1/%2").arg(componentName, filename);
+        xml_file =
+            QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1Char('/') + componentName + QLatin1String("/kxmlgui6/") + filename;
     }
 
     QFileInfo fileInfo(xml_file);

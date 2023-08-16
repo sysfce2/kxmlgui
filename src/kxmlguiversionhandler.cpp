@@ -216,7 +216,7 @@ KXmlGuiVersionHandler::KXmlGuiVersionHandler(const QStringList &files)
         if (best != allDocuments.begin()) {
             auto local = allDocuments.begin();
 
-            if ((*local).file.startsWith(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation))) {
+            if ((*local).file.startsWith(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation))) {
                 // load the local document and extract the action properties
                 QDomDocument localDocument;
                 localDocument.setContent((*local).data);

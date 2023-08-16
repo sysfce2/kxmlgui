@@ -56,6 +56,7 @@ target_sources(KF6XmlGui PRIVATE
   kxmlguifactory_p.cpp
   kxmlguiversionhandler.cpp
   kxmlguiwindow.cpp
+  kxmlgui5configmigration.cpp
   kundoactions.cpp
   kcheckaccelerators.cpp
 )
@@ -140,6 +141,7 @@ ecm_generate_headers(KXmlGui_HEADERS
   KXMLGUIFactory
   KXmlGuiWindow
   KUndoActions
+  KXmlGui5ConfigMigration
 
   REQUIRED_HEADERS KXmlGui_HEADERS
 )

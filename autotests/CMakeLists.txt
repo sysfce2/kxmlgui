@@ -6,8 +6,13 @@ include(ECMAddTests)
 ecm_add_tests(
    kactioncategorytest.cpp
    kactioncollectiontest.cpp
+   kxmlgui5configmigrationtest.cpp
    LINK_LIBRARIES Qt6::Test KF6::XmlGui
 )
+
+target_compile_definitions(kxmlgui5configmigrationtest PRIVATE -DKXMLGUI5CONFIGMIGRATION_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data" )
+set_tests_properties(kxmlgui5configmigrationtest PROPERTIES RUN_SERIAL TRUE) # wipes out ~/.qttest/{config,share}
+
 ecm_add_tests(
    kmainwindow_unittest.cpp
    ktoolbar_unittest.cpp
