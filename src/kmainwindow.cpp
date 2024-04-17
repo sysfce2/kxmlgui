@@ -500,7 +500,7 @@ void KMainWindow::appHelpActivated()
 {
     Q_D(KMainWindow);
     if (!d->helpMenu) {
-        d->helpMenu = new KHelpMenu(this);
+        d->helpMenu = new KHelpMenu(this, KHelpMenu::ShowWhatsThis);
         if (!d->helpMenu) {
             return;
         }

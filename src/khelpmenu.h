@@ -111,6 +111,23 @@ class KXMLGUI_EXPORT KHelpMenu : public QObject
 
 public:
     /**
+     * Defines some options which can be applied to the help menu
+     * @see Options
+     * @since 6.2
+     */
+    enum Option {
+        NoOptions = 0x0, ///< No options
+        ShowWhatsThis = 0x1, ///< Adds the "What's this" action to the help menu
+        DefaultOptions = ShowWhatsThis, ///< Options that are used by default
+    };
+    /**
+     * Stores a combination of #Option values.
+     */
+    Q_DECLARE_FLAGS(Options, Option)
+    Q_FLAG(Options)
+
+#if KXMLGUI_ENABLE_DEPRECATED_SINCE(6, 2)
+    /**
      * Constructor.
      *
      * @param parent The parent of the dialog boxes. The boxes are modeless
@@ -119,8 +136,25 @@ public:
      * @param showWhatsThis Decides whether a "What's this" entry will be
      *        added to the dialog.
      *
+     * @deprecated Since 6.2, use one of the other constructors
      */
+    KXMLGUI_DEPRECATED_VERSION(6, 2, "Use one of the other constructors")
     explicit KHelpMenu(QWidget *parent = nullptr, const QString &unused = QString(), bool showWhatsThis = true);
+#endif
+
+    /**
+     * Creates a KHelpMenu with the default app data (KAboutData::applicationData()).
+     *
+     * @param parent The parent of the dialog boxes. The boxes are modeless
+     *        and will be centered with respect to the parent.
+     * @param options Options that are be applied to the help menu.
+     *
+     * @since 6.2
+     */
+    // KF7 TODO: Change this to
+    //           explicit KHelpMenu(QWidget *parent = nullptr, Options options = DefaultOptions);
+    //           after removing the above constructor.
+    KHelpMenu(QWidget *parent, Options options);
 
     /**
      * Constructor.
@@ -255,5 +289,7 @@ Q_SIGNALS:
 private:
     KHelpMenuPrivate *const d;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(KHelpMenu::Options)
 
 #endif
