@@ -156,6 +156,7 @@ public:
     //           after removing the above constructor.
     KHelpMenu(QWidget *parent, Options options);
 
+#if KXMLGUI_ENABLE_DEPRECATED_SINCE(6, 2)
     /**
      * Constructor.
      *
@@ -168,8 +169,28 @@ public:
      * @param aboutData User and app data used in the About app dialog
      * @param showWhatsThis Decides whether a "What's this" entry will be
      *        added to the dialog.
+     *
+     * @deprecated Since 6.2, use one of the other constructors
      */
+    KXMLGUI_DEPRECATED_VERSION(6, 2, "Use one of the other constructors")
     KHelpMenu(QWidget *parent, const KAboutData &aboutData, bool showWhatsThis = true);
+#endif
+
+    /**
+     * Creates a KHelpMenu with app data @p aboutData.
+     *
+     * This constructor is useful if you want to use the help menu with custom
+     * application data.
+     *
+     * @param parent The parent of the dialog boxes. The boxes are modeless
+     *        and will be centered with respect to the parent.
+     * @param aboutData User and app data used in the About app dialog and for
+     *        the actions in the help menu.
+     * @param options Options that are be applied to the help menu.
+     *
+     * @since 6.2
+     */
+    KHelpMenu(QWidget *parent, const KAboutData &aboutData, Options options = DefaultOptions);
 
     /**
      * Destructor

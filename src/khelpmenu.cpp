@@ -95,11 +95,22 @@ KHelpMenu::KHelpMenu(QWidget *parent, Options options)
     d->createActions(this);
 }
 
+#if KXMLGUI_BUILD_DEPRECATED_SINCE(6, 2)
 KHelpMenu::KHelpMenu(QWidget *parent, const KAboutData &aboutData, bool showWhatsThis)
     : QObject(parent)
     , d(new KHelpMenuPrivate)
 {
     d->mShowWhatsThis = showWhatsThis;
+    d->mParent = parent;
+    d->mAboutData = aboutData;
+    d->createActions(this);
+}
+#endif
+
+KHelpMenu::KHelpMenu(QWidget *parent, const KAboutData &aboutData, Options options)
+    : KHelpMenu{parent, options}
+{
+    d->mShowWhatsThis = options & ShowWhatsThis;
     d->mParent = parent;
     d->mAboutData = aboutData;
     d->createActions(this);
