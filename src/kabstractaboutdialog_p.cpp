@@ -22,6 +22,7 @@
 #include <kxmlgui_version.h>
 // KF
 #include <KLocalizedString>
+#include <KSandbox>
 #include <KTitleWidget>
 // Qt
 #include <QApplication>
@@ -37,8 +38,24 @@ QWidget *KAbstractAboutDialogPrivate::createTitleWidget(const QIcon &icon, const
 
     titleWidget->setIconSize(QSize(48, 48));
     titleWidget->setIcon(icon, KTitleWidget::ImageLeft);
-    titleWidget->setText(
-        QLatin1String("<html><font size=\"5\">%1</font><br />%2</html>").arg(displayName, i18nc("Version version-number", "Version %1", version)));
+    QString titleText = QLatin1String("<html><font size=\"5\">%1</font><br />%2").arg(displayName, i18nc("Version version-number", "Version %1", version));
+
+    QString packageText;
+    if (KSandbox::isFlatpak()) {
+        packageText = i18nc("Linux packaging format", "Flatpak package");
+    }
+    if (KSandbox::isSnap()) {
+        packageText = i18nc("Linux packaging format", "Snap package");
+    }
+    if (qEnvironmentVariableIsSet("APPIMAGE")) {
+        packageText = i18nc("Linux packaging format", "AppImage package");
+    }
+    if (!packageText.isEmpty()) {
+        titleText.append(QLatin1String("<br /><i>%1</i>").arg(packageText));
+    }
+
+    titleText.append(QLatin1String("</html>"));
+    titleWidget->setText(titleText);
     return titleWidget;
 }
 
