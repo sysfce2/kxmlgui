@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdelibs4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-14 00:40+0000\n"
+"POT-Creation-Date: 2026-04-28 00:41+0000\n"
 "PO-Revision-Date: 2013-01-31 01:08+0400\n"
 "Last-Translator: Davit <nikdavnik@mail.ru>\n"
 "Language-Team: Armenian Language: hy\n"
@@ -1462,13 +1462,13 @@ msgstr "Չեղյալ համարել"
 msgid "No text"
 msgstr "Չկա տեքստ"
 
-#: kxmlguiwindow.cpp:191
+#: kxmlguiwindow.cpp:193
 #, fuzzy, kde-format
 #| msgid "Long Action"
 msgid "Find Action…"
 msgstr "Действие"
 
-#: kxmlguiwindow.cpp:561
+#: kxmlguiwindow.cpp:563
 #, kde-format
 msgid ""
 "There are two actions (%1, %2) that want to use the same shortcut (%3). This "
@@ -1476,7 +1476,7 @@ msgid ""
 "org'>bugs.kde.org</a>"
 msgstr ""
 
-#: kxmlguiwindow.cpp:566
+#: kxmlguiwindow.cpp:568
 #, fuzzy, kde-format
 #| msgid "Ambiguous shortcut detected"
 msgid "Ambiguous Shortcuts"
