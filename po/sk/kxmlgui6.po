@@ -115,9 +115,9 @@ msgstr ""
 "vy - užívateľ - nám musíte povedať, ak niečo nefunguje tak, ako ste "
 "očakávali, alebo by to mohlo byť urobené lepšie.<br /><br />KDE má systém "
 "pre sledovanie chýb. Navštívte <a href=\"%1\">%1</a> alebo použite "
-"\"Nahlásiť chybu...\" z menu \"Pomocník\".<br /><br /> Ak máte nejaké nápady "
-"na zlepšenie, pošlite svoje želanie do systému pre sledovanie chýb. "
-"Nezabudnite nastaviť závažnosť na \"Želanie\".</html>"
+"\"Nahlásiť chybu...\" z menu \"Pomocník\", aby ste nahlásili chyby.<br /"
+"><br />Ak máte nejaké nápady na zlepšenie, pošlite svoje želanie do systému "
+"pre sledovanie chýb. Nezabudnite nastaviť závažnosť na \"Želanie\".</html>"
 
 #: kaboutkdedialog_p.cpp:85
 #, kde-format
@@ -321,8 +321,8 @@ msgid ""
 "Please use %1 to report bugs.<br/>If you have questions or need help, please "
 "visit %2.<br/>"
 msgstr ""
-"Prosím, use %1 to report bugs.<br/>If you have questions or need help, "
-"please visit %2.<br/>"
+"Na hlásenie chýb použite %1.<br/>Ak máte otázky alebo potrebujete pomoc, "
+"navštívte %2.<br/>"
 
 #: kabstractaboutdialog_p.cpp:324
 #, kde-format
